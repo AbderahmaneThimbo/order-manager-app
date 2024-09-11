@@ -181,49 +181,59 @@ function manageOrders() {
   rl.question('Choisissez une option: ', (option) => {
     switch (option) {
       case '1':
-        rl.question('Entrez la date de la commande (YYYY-MM-DD): ', (orderDate) => {
-          rl.question('Entrez l\'ID du client: ', (customer_id) => {
-            rl.question('Entrez l\'adresse de livraison: ', (delivery_address) => {
-              rl.question('Entrez le numéro de suivi: ', (track_number) => {
-                rl.question('Entrez le statut de la commande: ', (status) => {
-                  
-                  const orderDetails = [];
-                  
-                  const addOrderDetailPrompt = () => {
-                    rl.question('Entrez l\'ID du produit: ', (product_id) => {
-                      rl.question('Entrez la quantité: ', (quantity) => {
-                        rl.question('Entrez le prix unitaire: ', (price) => {
-                          orderDetails.push({ product_id: product_id, quantity, price });
+  rl.question('Entrez la date de la commande (YYYY-MM-DD): ', (orderDate) => {
+    rl.question('Entrez l\'ID du client: ', (customer_id) => {
+      rl.question('Entrez l\'adresse de livraison: ', (delivery_address) => {
+        rl.question('Entrez le numéro de suivi: ', (track_number) => {
+          rl.question('Entrez le statut de la commande: ', (status) => {
 
-                          rl.question('Voulez-vous ajouter un autre détail ? (oui/non) ', (answer) => {
-                            if (answer.toLowerCase() === 'oui') {
-                              addOrderDetailPrompt();
-                            } else {
-                              orders.addOrder(orderDate, customer_id, delivery_address, track_number, status, orderDetails);
-                              console.log('Commande et détails enregistrés avec succès !');
-                              manageOrders();
-                            }
-                          });
-                        });
-                      });
+            const orderDetails = [];
+
+            const addOrderDetailPrompt = () => {
+              rl.question('Entrez l\'ID du produit: ', (product_id) => {
+                rl.question('Entrez la quantité: ', (quantity) => {
+                  rl.question('Entrez le prix unitaire: ', (price) => {
+                    orderDetails.push({ product_id: product_id, quantity, price });
+
+                    rl.question('Voulez-vous ajouter un autre détail ? (oui/non) ', (answer) => {
+                      if (answer.toLowerCase() === 'oui') {
+                        addOrderDetailPrompt();
+                      } else {
+                        confirmSaveOrder();
+                      }
                     });
-                  };
-
-                  rl.question('Voulez-vous ajouter des détails à cette commande ? (oui/non) ', (answer) => {
-                    if (answer.toLowerCase() === 'oui') {
-                      addOrderDetailPrompt();
-                    } else {
-                      console.log('Vous devez ajouter au moins un détail pour enregistrer la commande.');
-                      manageOrders();
-                    }
                   });
-
                 });
               });
+            };
+
+            const confirmSaveOrder = () => {
+              rl.question('Voulez-vous enregistrer cette commande ? (oui/non) ', (confirmation) => {
+                if (confirmation.toLowerCase() === 'oui') {
+                  orders.addOrder(orderDate, customer_id, delivery_address, track_number, status, orderDetails);
+                  console.log('Commande et détails enregistrés avec succès !');
+                } else {
+                  console.log('Commande annulée.');
+                }
+                manageOrders();
+              });
+            };
+
+            rl.question('Voulez-vous ajouter des détails à cette commande ? (oui/non) ', (answer) => {
+              if (answer.toLowerCase() === 'oui') {
+                addOrderDetailPrompt();
+              } else {
+                console.log('Vous devez ajouter au moins un détail pour enregistrer la commande.');
+                manageOrders();
+              }
             });
+
           });
         });
-        break;
+      });
+    });
+  });
+  break;
 
       case '2':
         rl.question('Entrez l\'ID de la commande à afficher avec ses détails: ', (order_id) => {
