@@ -1,0 +1,17 @@
+{
+  "name": "order-manager-app ",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^10.2.2",
+    "mysql2": "^3.11.0",
+    "readline-sync": "^1.4.10"
+  }
+}
