@@ -1,7 +1,24 @@
 const db = require('./config/database');
 
+function validateName(name) {
+  const regex = /^[A-Za-z\s]+$/; 
+  if (!regex.test(name)) {
+    throw new Error("Le nom ne doit pas contenir de chiffres ou de caractères spéciaux.");
+  }
+}
+
+function validateEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+  if (!regex.test(email)) {
+    throw new Error("Format d'email invalide.");
+  }
+}
+
 function addCustomer(name, address, email, phone) {
-    try {
+  try {
+        validateName(name);
+        validateEmail(email);
+    
         const query = 'INSERT INTO customers (name, address, email, phone) VALUES (?, ?, ?, ?)';
         db.query(query, [name, address, email, phone], (err, result) => {
         if (err) {
@@ -11,7 +28,7 @@ function addCustomer(name, address, email, phone) {
         console.log('Client ajouté avec succès! ID:', result.insertId);
       });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
 }
 
@@ -26,12 +43,15 @@ function listCustomer() {
         console.log('Liste des clients:', results);
       });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
 }
 
 function updateCustomer(id, name, address, email, phone,) {
-    try {
+  try {
+        validateName(name);
+        validateEmail(email);
+    
         const query = 'UPDATE customers SET name = ?, address = ?, email = ?, phone = ? WHERE id = ?';
         db.query(query, [name, address, email, phone, id], (err, result) => {
         if (err) {
@@ -45,7 +65,7 @@ function updateCustomer(id, name, address, email, phone,) {
         }
       });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
     
 }
@@ -65,7 +85,7 @@ function deleteCustomer(id) {
           }
         });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
     
 }
