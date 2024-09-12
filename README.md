@@ -26,7 +26,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 **Clonez le repository :**
 
 ```bash
-git clone <https://github.com/AbderahmaneThimbo/order-manager-app.git>
+git  clone https://github.com/AbderahmaneThimbo/order-manager-app.git 
 ```
 
 **Accédez au dossier du projet :**
@@ -40,6 +40,18 @@ git clone <https://github.com/AbderahmaneThimbo/order-manager-app.git>
 ```bash
    npm install
 ```
+
+
+
+## Configurer le Fichier de Configuration de la Base de Données
+
+### Accédez au fichier **src/config/database.js.**
+ adapter les paramètres de connexion à votre environnement MySQL
+
+- Hôte **(Host)** : l'adresse de votre serveur MySQL.
+- Utilisateur **(User)** : le nom d'utilisateur de votre base de données MySQL.
+- Mot de passe **(Password)** : le mot de passe associé à l'utilisateur.
+- Nom de la base de données **(Database name)** : le nom de la base de données que vous avez créée.
 
 ## Utilisation
 
