@@ -114,9 +114,9 @@ function manageProducts() {
         rl.question('Entrez le nom du produit: ', (name) => {
           rl.question('Entrez la description du produit: ', (description) => {
             rl.question('Entrez le prix du produit: ', (price) => {
-              rl.question('Entrez le stock du produit: ', (stock) => {
+              rl.question('Entrez la quantité en stock du produit: ', (stock) => {
                 rl.question('Entrez la catégorie du produit: ', (category) => {
-                  rl.question('Entrez le barcode du produit: ', (barcode) => {
+                  rl.question('Entrez le code-barre du produit: ', (barcode) => {
                     rl.question('Entrez le statut du produit: ', (status) => {
                       products.addProduct(name, description, price, stock, category, barcode, status);
                       manageProducts();
@@ -139,7 +139,7 @@ function manageProducts() {
               rl.question('Entrez le nouveau prix: ', (price) => {
                 rl.question('Entrez le nouveau stock: ', (stock) => {
                   rl.question('Entrez la nouvelle catégorie: ', (category) => {
-                    rl.question('Entrez le nouveau barcode: ', (barcode) => {
+                    rl.question('Entrez le nouveau code-barre: ', (barcode) => {
                       rl.question('Entrez le nouveau statut: ', (status) => {
                         products.updateProduct(id, name, description, price, stock, category, barcode, status);
                         manageProducts();

@@ -26,7 +26,7 @@ Suivez ces étapes pour configurer le projet sur votre machine locale :
 **Clonez le repository :**
 
 ```bash
-git  clone https://github.com/AbderahmaneThimbo/order-manager-app.git 
+ git clone https://github.com/AbderahmaneThimbo/order-manager-app.git 
 ```
 
 **Accédez au dossier du projet :**
