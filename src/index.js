@@ -2,7 +2,7 @@ const readline = require('readline');
 const customers = require('./customerModule');
 const products = require('./productModule');
 const orders = require('./orderModule');
-const payments = require('./payementModule');
+const payments = require('./paymentModule');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -30,7 +30,7 @@ function showMenu() {
         manageOrders();
         break;
       case '4':
-        managePayements();
+        managePayments();
         break;
       case '5':
         rl.close();
@@ -181,7 +181,7 @@ function manageOrders() {
   rl.question('Choisissez une option: ', (option) => {
     switch (option) {
       case '1':
-  rl.question('Entrez la date de la commande (YYYY-MM-DD): ', (orderDate) => {
+  rl.question('Entrez la date de la commande (YYYY-MM-DD): ', (date) => {
     rl.question('Entrez l\'ID du client: ', (customer_id) => {
       rl.question('Entrez l\'adresse de livraison: ', (delivery_address) => {
         rl.question('Entrez le numéro de suivi: ', (track_number) => {
@@ -210,7 +210,7 @@ function manageOrders() {
             const confirmSaveOrder = () => {
               rl.question('Voulez-vous enregistrer cette commande ? (oui/non) ', (confirmation) => {
                 if (confirmation.toLowerCase() === 'oui') {
-                  orders.addOrder(orderDate, customer_id, delivery_address, track_number, status, orderDetails);
+                  orders.addOrder(date, customer_id, delivery_address, track_number, status, orderDetails);
                   console.log('Commande et détails enregistrés avec succès !');
                 } else {
                   console.log('Commande annulée.');
@@ -302,7 +302,7 @@ function manageOrders() {
 }
 
 
-function managePayements() {
+function managePayments() {
   console.log(`
     1. Ajouter un paiement
     2. Lister les paiemnet
@@ -319,7 +319,7 @@ function managePayements() {
             rl.question('Entrez le montant du paiement: ', (amount) => {
               rl.question('Entrez la methode du paiement: ', (payment_method) => {
                 payments.addPayment(date, order_id, amount, payment_method);
-                managePayements();
+                managePayments();
               });
             });
           });
@@ -328,7 +328,7 @@ function managePayements() {
   
       case '2':
         payments.listPayment();
-        managePayements();
+        managePayments();
         break;
   
       case '3':
@@ -338,7 +338,7 @@ function managePayements() {
               rl.question('Entrez le nouveau montant: ', (amount) => {
                 rl.question('Entrez la nouvelle methode du paiement: ', (payment_method) => {
                   payments.updatePayment(id, date, order_id, amount, payment_method);
-                  managePayements();
+                  managePayments();
                 });
               });
             });
@@ -349,7 +349,7 @@ function managePayements() {
       case '4':
         rl.question('Entrez l\'ID du paiement à supprimer: ', (id) => {
           payments.deletePayment(id);
-          managePayements();
+          managePayments();
         });
         break;
   
@@ -359,7 +359,7 @@ function managePayements() {
   
       default:
         console.log('Option invalide. Veuillez choisir une option valide.');
-        managePayements();
+        managePayments();
     }
   });
 }

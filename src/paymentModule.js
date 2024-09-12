@@ -2,7 +2,7 @@ const db = require('./config/database');
 
 function addPayment(date, order_id, amount, payment_method) {
     try {
-        const query = 'INSERT INTO payements (date, order_id, amount, payment_method) VALUES (?, ?, ?, ?)';
+        const query = 'INSERT INTO payments (date, order_id, amount, payment_method) VALUES (?, ?, ?, ?)';
         db.query(query, [date, order_id, amount, payment_method], (err, result) => {
         if (err) {
             console.error('Erreure lors de l\'ajout du paiement:', err.message);
@@ -17,7 +17,7 @@ function addPayment(date, order_id, amount, payment_method) {
 
 function listPayment() {
     try {
-        const query = 'SELECT * FROM payements';
+        const query = 'SELECT * FROM payments';
         db.query(query, (err, results) => {
         if (err) {
             console.error('Erreur lors de la récupération des paiements:', err.message);
@@ -32,7 +32,7 @@ function listPayment() {
 
 function updatePayment(id, date, order_id, amount, payment_method) {
     try {
-        const query = 'UPDATE payements SET date = ?, order_id = ?, amount = ?, payment_method = ? WHERE id = ?';
+        const query = 'UPDATE payments SET date = ?, order_id = ?, amount = ?, payment_method = ? WHERE id = ?';
         db.query(query, [date, order_id, amount, payment_method, id], (err, result) => { 
         if (err) {
             console.error('Erreur lors de la mis à jour du paiement:', err.message);
@@ -51,7 +51,7 @@ function updatePayment(id, date, order_id, amount, payment_method) {
 
 function deletePayment(id) {
     try {
-        const query = 'DELETE FROM payements WHERE id = ?';
+        const query = 'DELETE FROM payments WHERE id = ?';
         db.query(query, [id], (err, result) => { 
         if (err) {
             console.error('Erreur lors de la suppression du paiement:', err.message);

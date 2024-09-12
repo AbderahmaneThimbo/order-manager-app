@@ -1,9 +1,9 @@
 const db = require('./config/database');
 
-function addOrder(order_date, customer_id, delivery_address, track_number, status, orderDetails) {
+function addOrder(date, customer_id, delivery_address, track_number, status, orderDetails) {
     try {
-        const query = 'INSERT INTO purchase_orders (order_date, customer_id, delivery_address, track_number, status) VALUES (?, ?, ?, ?, ?)';
-        db.query(query, [order_date, customer_id, delivery_address, track_number, status], (err, result) => {
+        const query = 'INSERT INTO purchase_orders (date, customer_id, delivery_address, track_number, status) VALUES (?, ?, ?, ?, ?)';
+        db.query(query, [date, customer_id, delivery_address, track_number, status], (err, result) => {
             if (err) {
                 console.error('Erreur lors de l\'ajout de la commande:', err.message);
                 return;
@@ -52,7 +52,7 @@ function getOrderById(order_id) {
 }
 
 
-function updateOrder(order_id, order_date, customer_id, delivery_address, track_number, status, orderDetails) {
+function updateOrder(order_id, date, customer_id, delivery_address, track_number, status, orderDetails) {
     try {
         const checkQuery = 'SELECT * FROM purchase_orders WHERE id = ?';
         db.query(checkQuery, [order_id], (err, checkResult) => {
@@ -65,8 +65,8 @@ function updateOrder(order_id, order_date, customer_id, delivery_address, track_
                 console.log('Aucune commande trouvée avec cet ID.');
                 return;
             }
-            const updateQuery = 'UPDATE purchase_orders SET order_date = ?, customer_id = ?, delivery_address = ?, track_number = ?, status = ? WHERE id = ?';
-            db.query(updateQuery, [order_date, customer_id, delivery_address, track_number, status, order_id], (err, result) => {
+            const updateQuery = 'UPDATE purchase_orders SET date = ?, customer_id = ?, delivery_address = ?, track_number = ?, status = ? WHERE id = ?';
+            db.query(updateQuery, [date, customer_id, delivery_address, track_number, status, order_id], (err, result) => {
                 if (err) {
                     console.error('Erreur lors de la mise à jour de la commande:', err.message);
                     return;
