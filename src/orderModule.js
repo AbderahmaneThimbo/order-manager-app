@@ -1,19 +1,28 @@
 const db = require('./config/database');
-
 function addOrder(date, customer_id, delivery_address, track_number, status, orderDetails) {
     try {
+        const invalidProduct = orderDetails.find(detail => !checkProductExists(detail.product_id));
+        if (invalidProduct) {
+            console.error('Le produit avec ID ' + invalidProduct.product_id + ' n\'existe pas.');
+            return;
+        }
         const query = 'INSERT INTO purchase_orders (date, customer_id, delivery_address, track_number, status) VALUES (?, ?, ?, ?, ?)';
         db.query(query, [date, customer_id, delivery_address, track_number, status], (err, result) => {
             if (err) {
                 console.error('Erreur lors de l\'ajout de la commande:', err.message);
                 return;
             }
-            
-            console.log('Commande ajoutée avec succès ID:', result.insertId);
-
+            console.log('Commande ajoutée avec succès! ID:', result.insertId);
             const orderId = result.insertId;
             orderDetails.forEach(detail => {
-                addOrderDetail(orderId, detail.product_id, detail.quantity, detail.price);
+                const addDetailQuery = 'INSERT INTO order_details (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)';
+                db.query(addDetailQuery, [orderId, detail.product_id, detail.quantity, detail.price], (err, detailResult) => {
+                    if (err) {
+                        console.error('Erreur lors de l\'ajout du détail de commande:', err.message);
+                    } else {
+                        console.log('Détail de commande ajouté avec succès! ID:', detailResult.insertId);
+                    }
+                });
             });
         });
     } catch (error) {
@@ -60,9 +69,13 @@ function updateOrder(order_id, date, customer_id, delivery_address, track_number
                 console.error('Erreur lors de la vérification de la commande:', err.message);
                 return;
             }
-  
             if (checkResult.length === 0) {
                 console.log('Aucune commande trouvée avec cet ID.');
+                return;
+            }
+            const invalidProduct = orderDetails.find(detail => !checkProductExists(detail.product_id));
+            if (invalidProduct) {
+                console.error('Le produit avec ID ' + invalidProduct.product_id + ' n\'existe pas.');
                 return;
             }
             const updateQuery = 'UPDATE purchase_orders SET date = ?, customer_id = ?, delivery_address = ?, track_number = ?, status = ? WHERE id = ?';
@@ -71,9 +84,7 @@ function updateOrder(order_id, date, customer_id, delivery_address, track_number
                     console.error('Erreur lors de la mise à jour de la commande:', err.message);
                     return;
                 }
-  
                 console.log('Commande mise à jour avec succès!');
-
                 orderDetails.forEach(detail => {
                     const updateDetailQuery = 'UPDATE order_details SET product_id = ?, quantity = ?, price = ? WHERE order_id = ? AND id = ?';
                     db.query(updateDetailQuery, [detail.product_id, detail.quantity, detail.price, order_id, detail.id], (err, detailResult) => {
@@ -118,6 +129,7 @@ function deleteOrder(id) {
     }
 }
 
+
 function addOrderDetail(order_id, product_id, quantity, price) {
     try {
         const query = 'INSERT INTO order_details (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)';
@@ -133,6 +145,20 @@ function addOrderDetail(order_id, product_id, quantity, price) {
     }
 }
 
+
+function checkProductExists(product_id) {
+
+    let exists = false;
+    const query = 'SELECT COUNT(*) AS count FROM products WHERE id = ?';
+    db.query(query, [product_id], (err, result) => {
+        if (err) {
+            console.error('Erreur lors de la vérification du produit:', err.message);
+        } else {
+            exists = result[0].count > 0;
+        }
+    });
+    return exists;
+}
 module.exports = {
     addOrder,
     getOrderById,

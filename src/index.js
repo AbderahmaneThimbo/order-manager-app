@@ -17,6 +17,7 @@ function showMenu() {
       4. Gérer les paiements
       5. Quitter
     `);
+  
 
   rl.question('Choisissez une option: ', (option) => {
     switch (option) {
@@ -139,7 +140,7 @@ function manageProducts() {
               rl.question('Entrez le nouveau prix: ', (price) => {
                 rl.question('Entrez le nouveau stock: ', (stock) => {
                   rl.question('Entrez la nouvelle catégorie: ', (category) => {
-                    rl.question('Entrez le nouveau code-barre: ', (barcode) => {
+                    rl.question('Entrez le nouveau barcode: ', (barcode) => {
                       rl.question('Entrez le nouveau statut: ', (status) => {
                         products.updateProduct(id, name, description, price, stock, category, barcode, status);
                         manageProducts();
@@ -211,7 +212,7 @@ function manageOrders() {
               rl.question('Voulez-vous enregistrer cette commande ? (oui/non) ', (confirmation) => {
                 if (confirmation.toLowerCase() === 'oui') {
                   orders.addOrder(date, customer_id, delivery_address, track_number, status, orderDetails);
-                  console.log('Commande et détails enregistrés avec succès !');
+                  // console.log('Commande !');
                 } else {
                   console.log('Commande annulée.');
                 }

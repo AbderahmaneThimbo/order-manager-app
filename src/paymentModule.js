@@ -11,7 +11,7 @@ function addPayment(date, order_id, amount, payment_method) {
         console.log('Paiement ajouté avec succès! ID:', result.insertId);
     });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
 }
 
@@ -26,7 +26,7 @@ function listPayment() {
         console.log('Liste des paiements:', results);
     });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
 }
 
@@ -45,7 +45,7 @@ function updatePayment(id, date, order_id, amount, payment_method) {
         }
     });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
 }
 
@@ -65,7 +65,7 @@ function deletePayment(id) {
         }
     });
     } catch (error) {
-        console.error('Erreur inattendue:', err.message);
+        console.error('Erreur inattendue:', error.message);
     }
 }
 

@@ -11,7 +11,7 @@ function addProduct(name, description, price, stock, category, barcode, status) 
       console.log('Produit est ajouté avec succès! ID:', result.insertId);
     });
   } catch (error) {
-    console.error('Erreur inattendue:', err.message);
+    console.error('Erreur inattendue:', error.message);
   }
 }
 
@@ -26,7 +26,7 @@ function listProduct() {
       console.log('Liste des produits:', results);
     });
   } catch (error) {
-    console.error('Erreur inattendue:', err.message);
+    console.error('Erreur inattendue:', error.message);
   }
 }
 
@@ -45,7 +45,7 @@ function updateProduct(id, name, description, price, stock, category, barcode, s
     }
   });
   } catch (error) {
-    console.error('Erreur inattendue:', err.message);
+    console.error('Erreur inattendue:', error.message);
   }
 
 }
@@ -65,7 +65,7 @@ function deleteProduct(id) {
     }
   });
   } catch (error) {
-    console.error('Erreur inattendue:', err.message);
+    console.error('Erreur inattendue:', error.message);
   }
     
 }
