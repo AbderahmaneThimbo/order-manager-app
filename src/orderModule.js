@@ -59,6 +59,24 @@ function addOrder(
   }
 }
 
+function listOrder() {
+  try {
+    const query = "SELECT * FROM purchase_orders";
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error(
+          "Erreur lors de la récupération des commandes:",
+          err.message
+        );
+        return;
+      }
+      console.log("Liste des commandes:", results);
+    });
+  } catch (error) {
+    console.error("Erreur inattendue:", error.message);
+  }
+}
+
 function getOrderById(order_id) {
   try {
     const queryOrder = "SELECT * FROM purchase_orders WHERE id = ?";
@@ -266,6 +284,7 @@ function checkProductExists(product_id) {
 module.exports = {
   addOrder,
   getOrderById,
+  listOrder,
   updateOrder,
   deleteOrder,
   addOrderDetail

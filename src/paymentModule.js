@@ -52,7 +52,7 @@ function updatePayment(id, date, order_id, amount, payment_method) {
         if (result.affectedRows === 0) {
           console.log("Aucun paiement retrouvé avec cet ID.");
         } else {
-          console.log("Paiement mid à jour avec succès!");
+          console.log("Paiement mis à jour avec succès!");
         }
       }
     );

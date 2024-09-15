@@ -35,7 +35,7 @@ function showMenu() {
       case "5":
         console.log("Bye");
         process.exit(0);
-        
+
       default:
         console.log("Option invalide.");
         showMenu();
@@ -189,10 +189,11 @@ function manageProducts() {
 function manageOrders() {
   console.log(`
     1. Ajouter une commande
-    2. Voir les details d'une commande
-    3. Mettre à jour une commande
-    4. Supprimer une commande
-    5. Retour au menu principal
+    2. Liste des commandes
+    3. Voir les details d'une commande
+    4. Mettre à jour une commande
+    5. Supprimer une commande
+    6. Retour au menu principal
   `);
 
   rl.question("Choisissez une option: ", option => {
@@ -243,7 +244,6 @@ function manageOrders() {
                             status,
                             orderDetails
                           );
-                          // console.log('Commande !');
                         } else {
                           console.log("Commande annulée.");
                         }
@@ -271,8 +271,12 @@ function manageOrders() {
           });
         });
         break;
-
       case "2":
+        orders.listOrder();
+        manageOrders();
+        break;
+
+      case "3":
         rl.question(
           "Entrez l'ID de la commande à afficher avec ses détails: ",
           order_id => {
@@ -282,7 +286,7 @@ function manageOrders() {
         );
         break;
 
-      case "3":
+      case "4":
         rl.question(
           "Entrez l'ID de la commande à mettre à jour: ",
           order_id => {
@@ -359,14 +363,14 @@ function manageOrders() {
         );
         break;
 
-      case "4":
+      case "5":
         rl.question("Entrez l'ID de la commande à supprimer: ", order_id => {
           orders.deleteOrder(order_id);
           manageOrders();
         });
         break;
 
-      case "5":
+      case "6":
         showMenu();
         break;
 
