@@ -60,7 +60,7 @@ function manageCustomers() {
             rl.question("Entrez l'email du client: ", email => {
               rl.question("Entrez le téléphone du client: ", phone => {
                 customers.addCustomer(name, address, email, phone);
-                manageCustomers();
+                setTimeout(manageCustomers, 100);
               });
             });
           });
@@ -68,7 +68,7 @@ function manageCustomers() {
         break;
       case "2":
         customers.listCustomer();
-        manageCustomers();
+        setTimeout(manageCustomers, 100);
         break;
       case "3":
         rl.question("Entrez l'ID du client à mettre à jour: ", id => {
@@ -77,7 +77,7 @@ function manageCustomers() {
               rl.question("Entrez le nouvel email: ", email => {
                 rl.question("Entrez le nouveau téléphone: ", phone => {
                   customers.updateCustomer(id, name, address, email, phone);
-                  manageCustomers();
+                  setTimeout(manageCustomers, 100);
                 });
               });
             });
@@ -87,7 +87,7 @@ function manageCustomers() {
       case "4":
         rl.question("Entrez l'ID du client à supprimer: ", id => {
           customers.deleteCustomer(id);
-          manageCustomers();
+          setTimeout(manageCustomers, 100);
         });
         break;
       case "5":
@@ -95,7 +95,7 @@ function manageCustomers() {
         break;
       default:
         console.log("Option invalide.");
-        manageCustomers();
+        setTimeout(manageCustomers, 100);
     }
   });
 }
@@ -128,7 +128,7 @@ function manageProducts() {
                         barcode,
                         status
                       );
-                      manageProducts();
+                      setTimeout(manageProducts, 100);
                     });
                   });
                 });
@@ -139,7 +139,7 @@ function manageProducts() {
         break;
       case "2":
         products.listProduct();
-        manageProducts();
+        setTimeout(manageProducts, 100);
         break;
       case "3":
         rl.question("Entrez l'ID du produit à mettre à jour: ", id => {
@@ -160,7 +160,7 @@ function manageProducts() {
                           barcode,
                           status
                         );
-                        manageProducts();
+                        setTimeout(manageProducts, 100);
                       });
                     });
                   });
@@ -173,7 +173,7 @@ function manageProducts() {
       case "4":
         rl.question("Entrez l'ID du produit à supprimer: ", id => {
           products.deleteProduct(id);
-          manageProducts();
+          setTimeout(manageProducts, 100);
         });
         break;
       case "5":
@@ -181,7 +181,7 @@ function manageProducts() {
         break;
       default:
         console.log("Option invalide.");
-        manageProducts();
+        setTimeout(manageProducts, 100);
     }
   });
 }
@@ -247,7 +247,7 @@ function manageOrders() {
                         } else {
                           console.log("Commande annulée.");
                         }
-                        manageOrders();
+                        setTimeout(manageOrders, 100);
                       }
                     );
                   };
@@ -261,7 +261,7 @@ function manageOrders() {
                         console.log(
                           "Vous devez ajouter au moins un détail pour enregistrer la commande."
                         );
-                        manageOrders();
+                        setTimeout(manageOrders, 100);
                       }
                     }
                   );
@@ -273,7 +273,7 @@ function manageOrders() {
         break;
       case "2":
         orders.listOrder();
-        manageOrders();
+        setTimeout(manageOrders, 100);
         break;
 
       case "3":
@@ -281,7 +281,7 @@ function manageOrders() {
           "Entrez l'ID de la commande à afficher avec ses détails: ",
           order_id => {
             orders.getOrderById(order_id);
-            manageOrders();
+            setTimeout(manageOrders, 100);
           }
         );
         break;
@@ -337,7 +337,7 @@ function manageOrders() {
                                                     status,
                                                     newOrderDetails
                                                   );
-                                                  manageOrders();
+                                                  setTimeout(manageOrders, 100);
                                                 }
                                               }
                                             );
@@ -366,7 +366,7 @@ function manageOrders() {
       case "5":
         rl.question("Entrez l'ID de la commande à supprimer: ", order_id => {
           orders.deleteOrder(order_id);
-          manageOrders();
+          setTimeout(manageOrders, 100);
         });
         break;
 
@@ -376,7 +376,7 @@ function manageOrders() {
 
       default:
         console.log("Option invalide.");
-        manageOrders();
+        setTimeout(manageOrders, 100);
     }
   });
 }
@@ -397,8 +397,8 @@ function managePayments() {
           rl.question("Entrez l'id du commande: ", order_id => {
             rl.question("Entrez le montant du paiement: ", amount => {
               rl.question("Entrez la methode du paiement: ", payment_method => {
-                payments.addPayment(date, order_id, amount, payment_method);
-                managePayments();
+                payments.addPayment(date, order_id, amount, payment_method)
+                setTimeout(managePayments, 100);
               });
             });
           });
@@ -407,7 +407,7 @@ function managePayments() {
 
       case "2":
         payments.listPayment();
-        managePayments();
+        setTimeout(managePayments, 100);
         break;
 
       case "3":
@@ -425,7 +425,7 @@ function managePayments() {
                       amount,
                       payment_method
                     );
-                    managePayments();
+                    setTimeout(managePayments, 100);
                   }
                 );
               });
@@ -437,7 +437,7 @@ function managePayments() {
       case "4":
         rl.question("Entrez l'ID du paiement à supprimer: ", id => {
           payments.deletePayment(id);
-          managePayments();
+          setTimeout(managePayments, 100);
         });
         break;
 
@@ -447,7 +447,7 @@ function managePayments() {
 
       default:
         console.log("Option invalide. Veuillez choisir une option valide.");
-        managePayments();
+        setTimeout(managePayments, 100);
     }
   });
 }
