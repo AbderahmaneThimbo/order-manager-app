@@ -1,4 +1,4 @@
-# Système de Gestion de Commandes, Clients, Produits, et Paiements
+# Order Manager App
 
 ## Description
 
